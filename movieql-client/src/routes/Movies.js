@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { gql, useQuery } from "@apollo/client";
 import { Link } from "react-router-dom";
 
+// Define a query to fetch all movies
 const ALL_MOVIES = gql`
   query getMovies {
     allMovies {
@@ -74,7 +75,9 @@ const PosterBg = styled.div`
 `;
 
 export default function Movies() {
+  // Fetch all movies using the useQuery hook
   const { data, loading } = useQuery(ALL_MOVIES);
+
   return (
     <Container>
       <Header>

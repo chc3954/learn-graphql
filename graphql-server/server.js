@@ -1,6 +1,7 @@
 import { ApolloServer, gql } from "apollo-server";
 import fetch from "node-fetch";
 
+// Define the schema
 const typeDefs = gql`
   type Query {
     allMovies: [Movie!]!
@@ -31,6 +32,7 @@ const typeDefs = gql`
   }
 `;
 
+// Define the resolvers
 const resolvers = {
   Query: {
     async allMovies() {
@@ -46,8 +48,10 @@ const resolvers = {
   },
 };
 
+// Create the server
 const server = new ApolloServer({ typeDefs, resolvers });
 
+// Start the server
 server.listen().then(({ url }) => {
   console.log(`Running on ${url}`);
 });

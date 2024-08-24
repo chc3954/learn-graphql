@@ -2,6 +2,7 @@ import { gql, useQuery } from "@apollo/client";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 
+// Define a query to fetch a single movie
 const GET_MOVIE = gql`
   query getMoive($movieId: String!) {
     movie(id: $movieId) {
@@ -50,7 +51,9 @@ const Image = styled.div`
 `;
 
 export default function Movie() {
+  // Get the movie ID from the URL
   const { id } = useParams();
+  // Fetch the movie data using the GET_MOVIE query
   const {
     data,
     loading,
@@ -62,13 +65,16 @@ export default function Movie() {
   });
 
   const onLike = () => {
+    // Update the cache with the new isLiked value
     cache.writeFragment({
       id: `Movie:${id}`,
+      // The fragment name should match the fragment name in the query
       fragment: gql`
         fragment MovieFragment on Movie {
           isLiked
         }
       `,
+      // The data to update
       data: {
         isLiked: !data.movie.isLiked,
       },
